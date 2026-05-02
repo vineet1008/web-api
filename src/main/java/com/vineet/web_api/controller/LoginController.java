@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@RequestMapping("/web-api/")
+@RequestMapping("/web-api/")
 public class LoginController {
 
-    @GetMapping
-    public String home(){
-        return "Hey This is the Spring boot App";
-    }
+//    @GetMapping
+//    public String home(){
+//        return "Hey This is the Spring boot App";
+//    }
 
 
 }
