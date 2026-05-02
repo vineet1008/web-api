@@ -1,6 +1,7 @@
 package com.vineet.web_api.config;
 
 import com.vineet.web_api.filter.JwtFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Value("${app.security.username}")
+    private String username;
+
+    @Value("${app.security.password}")
+    private String password;
 
     @Bean
     public JwtFilter jwtFilter() {
@@ -33,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("admin123")
+                .withUser(username)
+                .password(password)
                 .roles("USER");
     }
 
