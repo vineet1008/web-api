@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/web-api/")
 public class LoginController {
 
-//    @GetMapping
+    @GetMapping
 //    public String home(){
 //        return "Hey This is the Spring boot App";
 //    }
