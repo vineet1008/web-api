@@ -118,7 +118,7 @@ spring.jpa.show-sql=true
 
 ## 🧪 Testing
 
-Run tests using:
+Run tests using: http://localhost:8080/swagger-ui/index.html
 
 ```bash
 mvn test
