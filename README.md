@@ -1,8 +1,15 @@
-# 🚀 Spring Boot + Hibernate (Java 8) Application
+# 🚀 Web API - Spring Boot + Security + JWT
 
 ## 📌 Overview
 
-This project is a **Spring Boot application** built using **Java 8** and **Hibernate (JPA)** for ORM. It demonstrates a clean architecture with REST APIs, database integration, and standard best practices.
+This project is a **RESTful Web API** built using **Spring Boot (Java 8)**. It integrates:
+
+* 🔐 **Spring Security with JWT Authentication**
+* 🗄️ **Hibernate (JPA) for ORM**
+* 🐬 **MySQL Database**
+* 📑 **Swagger (OpenAPI) for API Documentation**
+
+The application provides secure, scalable, and production-ready backend services.
 
 ---
 
@@ -10,23 +17,27 @@ This project is a **Spring Boot application** built using **Java 8** and **Hiber
 
 * **Java 8**
 * **Spring Boot 2.x**
+* **Spring Security**
+* **JWT (JSON Web Token)**
 * **Spring Data JPA (Hibernate)**
-* **H2 / MySQL Database**
+* **MySQL**
+* **Swagger (Springfox / OpenAPI)**
 * **Maven**
-* **REST APIs**
 
 ---
 
 ## 📂 Project Structure
 
-```
-src/main/java/com/example/demo
+```id="proj1"
+src/main/java/com/example/webapi
 │
-├── controller     # REST Controllers
-├── service        # Business Logic
-├── repository     # JPA Repositories
-├── entity         # Hibernate Entities
-└── config         # Configuration Classes
+├── controller      # REST Controllers
+├── service         # Business Logic Layer
+├── repository      # JPA Repositories
+├── entity          # Database Entities
+├── security        # JWT & Security Config
+├── config          # Swagger & App Config
+└── exception       # Global Exception Handling
 
 src/main/resources
 ├── application.properties
@@ -34,93 +45,129 @@ src/main/resources
 
 ---
 
-## ⚙️ Setup & Installation
+## 🔐 Security Features
 
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-```
-
-### 2️⃣ Build the project
-
-```bash
-mvn clean install
-```
-
-### 3️⃣ Run the application
-
-```bash
-mvn spring-boot:run
-```
-
-Or run the main class:
-
-```bash
-Application.java
-```
+* ✅ JWT-based Authentication
+* ✅ Stateless Session Management
+* ✅ Password Encryption using BCrypt
+* ✅ Role-based Authorization
+* ✅ Secure API endpoints
 
 ---
 
-## 🧩 Configuration
+## ⚙️ Setup & Installation
 
-Update your `application.properties`:
+### 1️⃣ Clone the Repository
 
-### For H2 Database
-
-```properties
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=password
-
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
-spring.jpa.show-sql=true
+```bash id="clone1"
+git clone https://github.com/your-username/web-api.git
+cd web-api
 ```
 
-### For MySQL Database
+### 2️⃣ Configure MySQL Database
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/db_name
+Update `application.properties`:
+
+```properties id="mysql1"
+spring.datasource.url=jdbc:mysql://localhost:3306/your_db_name
 spring.datasource.username=root
 spring.datasource.password=your_password
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+```
+
+---
+
+### 3️⃣ Build the Project
+
+```bash id="build1"
+mvn clean install
+```
+
+---
+
+### 4️⃣ Run the Application
+
+```bash id="run1"
+mvn spring-boot:run
+```
+
+Or run:
+
+```bash id="run2"
+Application.java
+```
+
+---
+
+## 🔑 Authentication Flow (JWT)
+
+1. User sends login request
+2. Server validates credentials
+3. JWT token is generated
+4. Token is sent in response
+5. Client sends token in headers:
+
+```http id="jwt1"
+Authorization: Bearer <your_token>
 ```
 
 ---
 
 ## 📡 API Endpoints (Sample)
 
-| Method | Endpoint        | Description     |
-| ------ | --------------- | --------------- |
-| GET    | /api/users      | Get all users   |
-| GET    | /api/users/{id} | Get user by ID  |
-| POST   | /api/users      | Create new user |
-| PUT    | /api/users/{id} | Update user     |
-| DELETE | /api/users/{id} | Delete user     |
+### 🔓 Public APIs
+
+| Method | Endpoint           | Description       |
+| ------ | ------------------ | ----------------- |
+| POST   | /api/auth/login    | Authenticate user |
+| POST   | /api/auth/register | Register new user |
+
+### 🔒 Protected APIs
+
+| Method | Endpoint        | Description    |
+| ------ | --------------- | -------------- |
+| GET    | /api/users      | Get all users  |
+| GET    | /api/users/{id} | Get user by ID |
+| POST   | /api/users      | Create user    |
+| PUT    | /api/users/{id} | Update user    |
+| DELETE | /api/users/{id} | Delete user    |
 
 ---
 
-## 🧱 Features
+## 📑 Swagger API Documentation
+
+Access Swagger UI:
+
+```
+http://localhost:8080/swagger-ui/
+```
+
+Features:
+
+* 📌 Interactive API testing
+* 📌 Request/Response models
+* 📌 Authorization support
+
+---
+
+## 🧱 Key Features
 
 * ✅ RESTful API design
-* ✅ Hibernate ORM integration
-* ✅ Layered architecture (Controller → Service → Repository)
-* ✅ Exception handling
-* ✅ Configurable database (H2 / MySQL)
-* ✅ Clean and maintainable code
+* ✅ Secure authentication with JWT
+* ✅ Role-based access control
+* ✅ Hibernate ORM with MySQL
+* ✅ Centralized exception handling
+* ✅ Swagger integration
+* ✅ Clean layered architecture
 
 ---
 
 ## 🧪 Testing
 
-Run tests using: http://localhost:8080/swagger-ui/index.html
-
-```bash
+```bash id="test1"
 mvn test
 ```
 
@@ -128,24 +175,33 @@ mvn test
 
 ## 📦 Build JAR
 
-```bash
+```bash id="jar1"
 mvn clean package
 ```
 
-Run the JAR:
+Run:
 
-```bash
-java -jar target/app-name.jar
+```bash id="jar2"
+java -jar target/web-api.jar
 ```
+
+---
+
+## 🧩 Future Enhancements
+
+* 🔄 Refresh Token Implementation
+* 🐳 Docker Support
+* 📊 Logging & Monitoring (ELK / Prometheus)
+* ☁️ Cloud Deployment (AWS / Azure)
 
 ---
 
 ## 🤝 Contribution
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a new branch (`feature/your-feature`)
 3. Commit your changes
-4. Push to your branch
+4. Push to GitHub
 5. Create a Pull Request
 
 ---

@@ -1,18 +1,24 @@
 package com.vineet.web_api.users.controller;
 
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.vineet.web_api.utits.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/")
 public class LoginController {
 
- //   @GetMapping
-//    public String home(){
-//        return "Hey This is the Spring boot App";
-//    }
+    @Autowired
+    private JwtUtil jwtUtil;
 
+    @PostMapping("/login")
+    public String login(@RequestParam String username,
+                        @RequestParam String password) {
 
+        // Hardcoded validation (for now)
+        if ("admin".equals(username) && "admin123".equals(password)) {
+            return jwtUtil.generateToken(username);
+        } else {
+            throw new RuntimeException("Invalid credentials");
+        }
+    }
 }
