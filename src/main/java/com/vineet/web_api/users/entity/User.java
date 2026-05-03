@@ -1,6 +1,8 @@
 package com.vineet.web_api.users.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,6 +17,33 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    private String mobile_number;
+
+    private String address;
+
+    private LocalDateTime createddatetime;
+
+    private int isActive;
+
+    private LocalDateTime modifieddatetime;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
+
+    public LocalDateTime getModifieddatetime() {
+        return modifieddatetime;
+    }
+
+    public void setModifieddatetime(LocalDateTime modifieddatetime) {
+        this.modifieddatetime = modifieddatetime;
+    }
 
     // Constructors
     public User() {}
@@ -34,4 +63,44 @@ public class User {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
+
+    public String getMobile_number() {
+        return mobile_number;
+    }
+
+    public void setMobile_number(String mobile_number) {
+        this.mobile_number = mobile_number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDateTime getCreateddatetime() {
+        return createddatetime;
+    }
+
+    public void setCreateddatetime(LocalDateTime createddatetime) {
+        this.createddatetime = createddatetime;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

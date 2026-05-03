@@ -1,21 +1,28 @@
 package com.vineet.web_api.users.serviceImpl;
 
 
+import com.vineet.web_api.users.dao.RoleRepository;
 import com.vineet.web_api.users.dao.UserRepository;
+import com.vineet.web_api.users.entity.Role;
 import com.vineet.web_api.users.entity.User;
 import com.vineet.web_api.users.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
+
+    private final RoleRepository roleRepository;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -27,6 +34,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public User createUser(User user) {
+        Set<Role> roles = user.getRoles().stream()
+                .map(role -> roleRepository.findByName(role.getName())
+                        .orElseThrow(() -> new RuntimeException("Role not found: " + role.getName()))
+                )
+                .collect(Collectors.toSet());
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 
