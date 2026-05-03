@@ -1,5 +1,7 @@
 package com.vineet.web_api.filter;
 
+import com.vineet.web_api.dao.ExceptionLogRepository;
+import com.vineet.web_api.entity.ExceptionLog;
 import com.vineet.web_api.utits.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,11 +9,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private ExceptionLogRepository exceptionLogRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -20,6 +26,8 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
+try{
+
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
@@ -33,7 +41,18 @@ public class JwtFilter extends OncePerRequestFilter {
                 );
             }
         }
-
+} catch (Exception e) {
+    ExceptionLog log = new ExceptionLog(
+            e.getClass().getSimpleName(),
+            e.getMessage(),
+            request.getRequestURI(),
+            500,
+            LocalDateTime.now(),
+            request.getRemoteAddr()
+    );
+    exceptionLogRepository.save(log);
+    throw new RuntimeException(e);
+}
         chain.doFilter(request, response);
     }
 }
