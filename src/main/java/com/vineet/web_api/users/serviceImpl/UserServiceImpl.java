@@ -8,6 +8,7 @@ import com.vineet.web_api.users.entity.User;
 import com.vineet.web_api.users.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User Id not found" + id));
     }
 
     public User createUser(User user) {
@@ -47,6 +48,10 @@ public class UserServiceImpl implements UserService {
         User user = getUserById(id);
         user.setName(updatedUser.getName());
         user.setEmail(updatedUser.getEmail());
+        user.setUsername(updatedUser.getUsername());
+        user.setPassword(updatedUser.getPassword());
+        user.setModifieddatetime(LocalDateTime.now());
+        user.setMobile_number(updatedUser.getMobile_number());
         return userRepository.save(user);
     }
 

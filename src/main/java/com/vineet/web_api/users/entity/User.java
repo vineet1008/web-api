@@ -15,6 +15,11 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    private String username;
+
+    private String password;
+
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -43,6 +48,23 @@ public class User {
 
     public void setModifieddatetime(LocalDateTime modifieddatetime) {
         this.modifieddatetime = modifieddatetime;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     // Constructors
