@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findByIsActive(0);
     }
 
     public User getUserById(Long id) {
@@ -56,6 +57,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        userRepository.findById(id).ifPresent(user -> {
+            user.setIsActive(1);
+            user.setModifieddatetime(LocalDateTime.now());
+            userRepository.save(user);
+        });
     }
 }
