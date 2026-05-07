@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 public class UserInitializer {
@@ -33,12 +37,17 @@ public class UserInitializer {
     }
 
     private void createRole() {
-        if (!roleRepository.findByName("ROLE_USER").isPresent()) {
-            roleRepository.save(new Role("ROLE_USER"));
-        }
+        List<String> roleNames = Arrays.asList(
+                "ROLE_VIEWER",
+                "ROLE_ADMIN"
+        );
+        List<Role> rolesToSave = roleNames.stream()
+                .filter(roleName -> !roleRepository.findByName(roleName).isPresent())
+                .map(Role::new)
+                .collect(Collectors.toList());
 
-        if (!roleRepository.findByName("ROLE_ADMIN").isPresent()) {
-            roleRepository.save(new Role("ROLE_ADMIN"));
+        if (!rolesToSave.isEmpty()) {
+            roleRepository.saveAll(rolesToSave);
         }
         System.out.println("✅ Roles initialized");
     }
