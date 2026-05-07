@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class UserInitializer {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostConstruct
     public void init() {
         createRole();
@@ -32,7 +36,7 @@ public class UserInitializer {
 
     private void createUser() {
         if(!userRepository.existsByUsername("admin")){
-            userRepository.save(new User("admin","admin","admin123","admin@xyz.com"));
+            userRepository.save(new User("admin","admin",passwordEncoder.encode("admin123"),"admin@xyz.com"));
         }
     }
 
