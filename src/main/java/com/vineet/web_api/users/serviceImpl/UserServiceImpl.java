@@ -6,6 +6,8 @@ import com.vineet.web_api.users.dao.UserRepository;
 import com.vineet.web_api.users.entity.Role;
 import com.vineet.web_api.users.entity.User;
 import com.vineet.web_api.users.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private final RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         return userRepository.findByIsActive(0);
@@ -49,7 +54,7 @@ public class UserServiceImpl implements UserService {
         user.setName(updatedUser.getName());
         user.setEmail(updatedUser.getEmail());
         //user.setUsername(updatedUser.getUsername());
-        user.setPassword(updatedUser.getPassword());
+        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         user.setModifieddatetime(LocalDateTime.now());
         user.setMobile_number(updatedUser.getMobile_number());
         return userRepository.save(user);
