@@ -75,13 +75,13 @@ public class User {
         this.email = email;
     }
 
-    public User(String name,String username,String password, String email) {
+    public User(String name,String username,String password, String email,Set<Role> roles) {
         this.name = name;
         this.username=username;
         this.password=password;
         this.email = email;
         this.createddatetime=LocalDateTime.now();
-
+        this.roles=roles;
     }
 
     // Getters & Setters
