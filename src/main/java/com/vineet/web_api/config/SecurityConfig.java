@@ -3,7 +3,6 @@ package com.vineet.web_api.config;
 import com.vineet.web_api.filter.JwtFilter;
 import com.vineet.web_api.users.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
