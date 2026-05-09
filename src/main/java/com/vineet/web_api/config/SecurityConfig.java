@@ -18,17 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    @Value("${app.security.username}")
-    private String username;
-
-    @Value("${app.security.password}")
-    private String password;
-
-
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
