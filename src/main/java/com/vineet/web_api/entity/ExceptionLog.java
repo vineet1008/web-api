@@ -65,4 +65,17 @@ public class ExceptionLog {
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
+
+    @Override
+    public String toString() {
+        return "ExceptionLog{" +
+                "id=" + id +
+                ", exceptionName='" + exceptionName + '\'' +
+                ", message='" + message + '\'' +
+                ", path='" + path + '\'' +
+                ", statusCode=" + statusCode +
+                ", timestamp=" + timestamp +
+                ", ipAddress='" + ipAddress + '\'' +
+                '}';
+    }
 }

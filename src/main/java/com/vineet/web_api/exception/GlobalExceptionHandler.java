@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         error.put("message", ex.getMessage());
         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-
+        System.out.println(log.toString());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         error.put("message", ex.getMessage());
         error.put("status", HttpStatus.BAD_REQUEST.value());
-
+        System.out.println(log.toString());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

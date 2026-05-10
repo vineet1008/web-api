@@ -28,7 +28,6 @@ public class JwtFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
-
         String path = request.getServletPath();
         if (path.equals("/login")) {
             chain.doFilter(request, response);
@@ -49,8 +48,6 @@ try{
                         )
                 );
             }
-        }else{
-            throw new RuntimeException("Authorization Header is not Found..");
         }
 } catch (Exception e) {
     ExceptionLog log = new ExceptionLog(
@@ -62,6 +59,7 @@ try{
             request.getRemoteAddr()
     );
     exceptionLogRepository.save(log);
+    System.out.println(log.toString());
     throw new RuntimeException(e);
 }
         chain.doFilter(request, response);
