@@ -13,7 +13,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String fullName;
     @Column(unique = true)
     private String username;
 
@@ -70,13 +70,13 @@ public class User {
     // Constructors
     public User() {}
 
-    public User(String name, String email) {
-        this.name = name;
+    public User(String fullName, String email) {
+        this.fullName = fullName;
         this.email = email;
     }
 
-    public User(String name,String username,String password, String email,Set<Role> roles) {
-        this.name = name;
+    public User(String fullName, String username, String password, String email, Set<Role> roles) {
+        this.fullName = fullName;
         this.username=username;
         this.password=password;
         this.email = email;
@@ -87,9 +87,9 @@ public class User {
     // Getters & Setters
     public Long getId() { return id; }
 
-    public String getName() { return name; }
+    public String getFullName() { return fullName; }
 
-    public void setName(String name) { this.name = name; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
     public String getEmail() { return email; }
 

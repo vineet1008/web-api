@@ -1,6 +1,7 @@
 package com.vineet.web_api.users.controller;
 
 
+import com.vineet.web_api.users.entity.Role;
 import com.vineet.web_api.users.entity.User;
 import com.vineet.web_api.users.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +46,10 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "User deleted successfully";
+    }
+
+    @GetMapping("/roles")
+    public List<Role> getAllRoles(){
+        return userService.getAllRoles();
     }
 }

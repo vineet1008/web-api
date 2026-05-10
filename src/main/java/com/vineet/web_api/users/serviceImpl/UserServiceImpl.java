@@ -46,12 +46,14 @@ public class UserServiceImpl implements UserService {
                 )
                 .collect(Collectors.toSet());
         user.setRoles(roles);
+        user.setModifieddatetime(null);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     public User updateUser(Long id, User updatedUser) {
         User user = getUserById(id);
-        user.setName(updatedUser.getName());
+        user.setFullName(updatedUser.getFullName());
         user.setEmail(updatedUser.getEmail());
         //user.setUsername(updatedUser.getUsername());
         user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
@@ -66,5 +68,10 @@ public class UserServiceImpl implements UserService {
             user.setModifieddatetime(LocalDateTime.now());
             userRepository.save(user);
         });
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
     }
 }
