@@ -14,7 +14,7 @@ public class ExceptionLog {
     @Column(name = "exception_name", nullable = false)
     private String exceptionName;
 
-    @Column(name = "message", length = 1000)
+    @Column(name = "message", columnDefinition = "LONGTEXT")
     private String message;
 
     @Column(name = "path")
