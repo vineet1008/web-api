@@ -1,4 +1,4 @@
-package com.vineet.web_api.users.dto;
+package com.vineet.web_api.dto;
 
 public class AuthRequest {
 

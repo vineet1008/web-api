@@ -1,6 +1,6 @@
-package com.vineet.web_api.users.controller;
+package com.vineet.web_api.controller;
 
-import com.vineet.web_api.users.dto.AuthRequest;
+import com.vineet.web_api.dto.AuthRequest;
 import com.vineet.web_api.utits.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
