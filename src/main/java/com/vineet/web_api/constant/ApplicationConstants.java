@@ -6,4 +6,5 @@ public class ApplicationConstants {
     public static final String ROLE_VIEWER="ROLE_VIEWER";
     public static final String ADMIN="admin";
     public static final String ADMIN_PASSWORD="admin123";
+    public static final String FULL_NAME="Administration";
 }

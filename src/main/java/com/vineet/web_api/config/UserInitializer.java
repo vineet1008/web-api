@@ -37,7 +37,7 @@ public class UserInitializer {
         Set<Role> roles=new HashSet<>();
         roles.add(adminRole);
         if(!userRepository.existsByUsername(ApplicationConstants.ADMIN)){
-            userRepository.save(new User(ApplicationConstants.ADMIN,ApplicationConstants.ADMIN,passwordEncoder.encode(ApplicationConstants.ADMIN_PASSWORD),"admin@xyz.com",roles));
+            userRepository.save(new User(ApplicationConstants.FULL_NAME,ApplicationConstants.ADMIN,passwordEncoder.encode(ApplicationConstants.ADMIN_PASSWORD),"admin@xyz.com",roles));
         }
     }
 
