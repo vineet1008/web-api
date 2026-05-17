@@ -1,4 +1,4 @@
-package com.vineet.web_api.users.service;
+package com.vineet.web_api.service;
 
 import com.vineet.web_api.users.dao.UserRepository;
 import com.vineet.web_api.users.entity.Role;
